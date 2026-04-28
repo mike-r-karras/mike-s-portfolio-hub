@@ -7,8 +7,8 @@ const links = [
     href: "mailto:mike.r.karras@gmail.com",
     external: false,
   },
-  { icon: Github, label: "GitHub", href: "#", external: true },
-  { icon: Linkedin, label: "LinkedIn", href: "#", external: true },
+  { icon: Github, label: "GitHub", href: "https://github.com/mike-r-karras", external: true },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/mike-karras-187b481b/", external: true },
 ];
 
 export function Contact() {
