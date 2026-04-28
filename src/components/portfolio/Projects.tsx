@@ -1,4 +1,5 @@
 import microservicesBg from "@/assets/microservices-bg.png";
+import branchAwareBg from "@/assets/branch-aware-bg.png";
 
 type Project = {
   title: string;
@@ -26,6 +27,7 @@ const projects: Project[] = [
     description:
       "Created a system to spin up multi-service environments with correct branch alignment for QA testing.",
     stack: ["Docker", "CI/CD", "Bash"],
+    backgroundImage: branchAwareBg,
   },
   {
     title: "Healthcare SSO Integration",
