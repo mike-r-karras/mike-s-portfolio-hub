@@ -25,8 +25,8 @@ export function Footer({
         <div
           className="h-full w-full"
           style={{
-            transform: "rotateY(10deg) scaleY(-1)",
-            transformOrigin: "right top",
+            transform: "rotateY(-10deg) scaleY(-1)",
+            transformOrigin: "left top",
             transformStyle: "preserve-3d",
             opacity: 0.6,
             filter: "saturate(0.9) brightness(0.75)",
