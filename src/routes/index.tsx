@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav, type SectionId, sectionOrder } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
@@ -88,11 +88,13 @@ function Index() {
     </div>
   );
 
+  const stageRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
       <Nav active={active} onNavigate={goTo} />
 
-      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }}>
+      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }} ref={stageRef}>
         {/* Tilted stage — angles away from viewer L→R */}
         <div
           className="h-full w-full"
@@ -141,6 +143,7 @@ function Index() {
         activeIndex={activeIndex}
         sections={sections}
         onNavigate={goTo}
+        sourceRef={stageRef}
       />
     </div>
   );
