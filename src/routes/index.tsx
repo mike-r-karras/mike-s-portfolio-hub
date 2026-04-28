@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Nav, type SectionId, sectionOrder } from "@/components/portfolio/Nav";
 import { Hero } from "@/components/portfolio/Hero";
