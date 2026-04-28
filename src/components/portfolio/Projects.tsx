@@ -1,7 +1,10 @@
+import microservicesImage from "@/assets/microservices-network.png";
+
 type Project = {
   title: string;
   description: string;
   stack: string[];
+  image?: string;
 };
 
 const projects: Project[] = [
@@ -10,6 +13,7 @@ const projects: Project[] = [
     description:
       "Migrated a legacy monolith to scalable microservices using Node.js and AWS Lambda. Improved deployment speed and system scalability.",
     stack: ["Node.js", "AWS Lambda", "API Gateway"],
+    image: microservicesImage,
   },
   {
     title: "Secure Document Collaboration System",
