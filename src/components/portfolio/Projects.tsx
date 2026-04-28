@@ -37,28 +37,38 @@ export function Projects() {
       <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
         Projects
       </h2>
-      <div className="mt-8 grid gap-5 sm:grid-cols-2">
-        {projects.map((p) => (
-          <article
-            key={p.title}
-            className="group flex flex-col rounded-lg border border-border/60 bg-card/30 p-6 transition-colors hover:border-foreground/30"
-          >
-            <h3 className="text-lg font-semibold text-foreground">{p.title}</h3>
-            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-              {p.description}
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {p.stack.map((s) => (
-                <span
-                  key={s}
-                  className="rounded-full border border-border/60 px-2.5 py-0.5 text-xs text-foreground/70"
-                >
-                  {s}
-                </span>
-              ))}
-            </div>
-          </article>
-        ))}
+      <div
+        className="mt-8 overflow-x-auto pb-8 [perspective:1200px]"
+        style={{ scrollbarWidth: "thin" }}
+      >
+        <div
+          className="flex gap-6 px-2 py-6 [transform-style:preserve-3d]"
+          style={{ transform: "rotateY(-10deg)" }}
+        >
+          {projects.map((p) => (
+            <article
+              key={p.title}
+              className="group flex w-72 shrink-0 flex-col rounded-lg border border-border/60 bg-card/30 p-6 transition-colors hover:border-foreground/30 sm:w-80"
+            >
+              <h3 className="text-lg font-semibold text-foreground">
+                {p.title}
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {p.description}
+              </p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {p.stack.map((s) => (
+                  <span
+                    key={s}
+                    className="rounded-full border border-border/60 px-2.5 py-0.5 text-xs text-foreground/70"
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );
