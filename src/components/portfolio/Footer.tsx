@@ -1,9 +1,104 @@
-export function Footer() {
+import type { ReactNode } from "react";
+import { sectionOrder, type SectionId } from "@/components/portfolio/Nav";
+
+type Section = { id: SectionId; node: ReactNode };
+
+export function Footer({
+  active,
+  activeIndex,
+  sections,
+  onNavigate,
+}: {
+  active: SectionId;
+  activeIndex: number;
+  sections: Section[];
+  onNavigate: (id: SectionId) => void;
+}) {
   return (
-    <footer className="mx-auto max-w-5xl px-6 py-10">
-      <p className="text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Mike Karras
-      </p>
+    <footer className="relative h-40 shrink-0 overflow-hidden border-t border-border/40 bg-background">
+      {/* Wet pavement reflection of the active section */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{ perspective: "1400px" }}
+        aria-hidden
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            transform: "rotateY(-10deg) scaleY(-1)",
+            transformOrigin: "left top",
+            transformStyle: "preserve-3d",
+            opacity: 0.35,
+            filter: "blur(2px) saturate(0.8) brightness(0.6)",
+            maskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 100%)",
+          }}
+        >
+          <div
+            className="flex h-[600%] transition-transform duration-500 ease-in-out"
+            style={{
+              width: `${sections.length * 100}%`,
+              transform: `translateX(-${activeIndex * (100 / sections.length)}%)`,
+            }}
+          >
+            {sections.map((s) => (
+              <div
+                key={s.id}
+                className="overflow-hidden"
+                style={{ width: `${100 / sections.length}%` }}
+              >
+                <div className="flex min-h-full items-center">
+                  <div className="w-full">{s.node}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Wet sheen / streetlight gradient */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, color-mix(in oklab, var(--background) 30%, transparent) 0%, var(--background) 85%)",
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-20 mix-blend-screen"
+          style={{
+            background:
+              "radial-gradient(ellipse at 30% 0%, color-mix(in oklab, var(--foreground) 25%, transparent), transparent 60%), radial-gradient(ellipse at 75% 0%, color-mix(in oklab, var(--foreground) 15%, transparent), transparent 55%)",
+          }}
+        />
+      </div>
+
+      {/* Foreground footer content */}
+      <div className="relative z-10 mx-auto flex h-full max-w-5xl flex-col items-center justify-end gap-3 px-6 pb-4">
+        <div className="flex gap-2">
+          {sectionOrder.map((id, i) => (
+            <button
+              key={id}
+              type="button"
+              onClick={() => onNavigate(id)}
+              aria-label={`Go to ${id}`}
+              aria-current={i === activeIndex ? "true" : undefined}
+              className={`h-1.5 rounded-full transition-all ${
+                i === activeIndex
+                  ? "w-6 bg-foreground"
+                  : "w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground"
+              }`}
+            />
+          ))}
+        </div>
+        <p className="text-xs text-muted-foreground">
+          © {new Date().getFullYear()} Mike Karras
+        </p>
+      </div>
+
+      {/* Reference active id to keep prop used (a11y / future hooks) */}
+      <span className="sr-only">Current section: {active}</span>
     </footer>
   );
 }
