@@ -143,6 +143,7 @@ function Index() {
         activeIndex={activeIndex}
         sections={sections}
         onNavigate={goTo}
+        sourceRef={stageRef}
       />
     </div>
   );
