@@ -79,7 +79,7 @@ function Index() {
     <div
       key={s.id}
       className="h-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-      style={{ width: `${100 / sections.length}%` }}
+      style={{ width: `${100 / sections.length}%`, padding: "25px" }}
       aria-hidden={s.id !== active}
     >
       <div
