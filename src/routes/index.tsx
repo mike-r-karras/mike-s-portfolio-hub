@@ -78,12 +78,12 @@ function Index() {
   const renderPanel = (s: (typeof sections)[number]) => (
     <div
       key={s.id}
-      className="h-full px-4 py-4"
+      className="h-full px-4 py-4 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       style={{ width: `${100 / sections.length}%` }}
       aria-hidden={s.id !== active}
     >
       <div
-        className="h-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="min-h-full flex items-center"
         style={{
           borderRadius: "20px",
           border: "1.5px solid oklch(0.85 0.12 230)",
@@ -92,9 +92,7 @@ function Index() {
           padding: "25px",
         }}
       >
-        <div className="flex min-h-full items-center">
-          <div className="w-full">{s.node}</div>
-        </div>
+        <div className="w-full">{s.node}</div>
       </div>
     </div>
   );
