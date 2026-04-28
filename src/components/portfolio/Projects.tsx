@@ -1,7 +1,10 @@
+import microservicesBg from "@/assets/microservices-bg.png";
+
 type Project = {
   title: string;
   description: string;
   stack: string[];
+  backgroundImage?: string;
 };
 
 const projects: Project[] = [
@@ -10,6 +13,7 @@ const projects: Project[] = [
     description:
       "Migrated a legacy monolith to scalable microservices using Node.js and AWS Lambda. Improved deployment speed and system scalability.",
     stack: ["Node.js", "AWS Lambda", "API Gateway"],
+    backgroundImage: microservicesBg,
   },
   {
     title: "Secure Document Collaboration System",
@@ -42,6 +46,16 @@ export function Projects() {
           <article
             key={p.title}
             className="group flex flex-col rounded-lg border border-border/60 bg-card/30 p-6 transition-colors hover:border-foreground/30"
+            style={
+              p.backgroundImage
+                ? {
+                    backgroundImage: `url(${p.backgroundImage})`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                  }
+                : undefined
+            }
           >
             <h3 className="text-lg font-semibold text-foreground">{p.title}</h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
