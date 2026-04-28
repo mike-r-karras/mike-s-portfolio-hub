@@ -89,7 +89,7 @@ function Index() {
           border: "1.5px solid oklch(0.85 0.12 230)",
           boxShadow:
             "0 0 6px oklch(0.85 0.12 230 / 0.9), 0 0 18px oklch(0.78 0.18 230 / 0.7), 0 0 36px oklch(0.7 0.2 230 / 0.45), inset 0 0 12px oklch(0.85 0.15 230 / 0.25)",
-          padding: "10px",
+          padding: "0px",
         }}
       >
         <div className="w-full">{s.node}</div>
