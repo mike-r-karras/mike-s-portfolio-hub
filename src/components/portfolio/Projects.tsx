@@ -1,7 +1,10 @@
+import microservicesImage from "@/assets/microservices-network.png";
+
 type Project = {
   title: string;
   description: string;
   stack: string[];
+  image?: string;
 };
 
 const projects: Project[] = [
@@ -10,6 +13,7 @@ const projects: Project[] = [
     description:
       "Migrated a legacy monolith to scalable microservices using Node.js and AWS Lambda. Improved deployment speed and system scalability.",
     stack: ["Node.js", "AWS Lambda", "API Gateway"],
+    image: microservicesImage,
   },
   {
     title: "Secure Document Collaboration System",
@@ -43,6 +47,14 @@ export function Projects() {
             key={p.title}
             className="group flex flex-col rounded-lg border border-border/60 bg-card/30 p-6 transition-colors hover:border-foreground/30"
           >
+            {p.image && (
+              <img
+                src={p.image}
+                alt={`${p.title} visualization`}
+                className="mb-4 aspect-square w-full rounded-md border border-border/60 bg-background object-contain"
+                loading="lazy"
+              />
+            )}
             <h3 className="text-lg font-semibold text-foreground">{p.title}</h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
               {p.description}
