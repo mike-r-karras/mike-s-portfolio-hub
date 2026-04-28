@@ -108,7 +108,7 @@ function Index() {
         <div
           className="h-full w-full"
           style={{
-            transform: "rotateY(10deg)",
+            transform: "translateZ(-180px) rotateY(10deg)",
             transformOrigin: "right center",
             transformStyle: "preserve-3d",
           }}
