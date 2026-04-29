@@ -55,7 +55,17 @@ export function Projects() {
             key={p.title}
             className="group flex flex-col overflow-hidden rounded-lg border border-border/60 bg-card/30 transition-colors hover:border-foreground/30"
           >
-            {p.backgroundImage && (
+            {p.backgroundImage && p.imageFit === "contain-white" && (
+              <div className="w-full bg-white">
+                <img
+                  src={p.backgroundImage}
+                  alt=""
+                  aria-hidden="true"
+                  className="block w-full h-auto"
+                />
+              </div>
+            )}
+            {p.backgroundImage && p.imageFit !== "contain-white" && (
               <div className="relative w-full overflow-hidden" style={{ aspectRatio: "2 / 1" }}>
                 <img
                   src={p.backgroundImage}
