@@ -18,8 +18,9 @@ export function Contact() {
         Contact
       </h2>
       <p className="mt-6 text-base text-foreground/90">
-        Open to senior engineering roles and interesting consulting work. The
-        fastest way to reach me is email.
+        Open to senior engineering roles and interesting consulting work.
+        <br />
+        The fastest way to reach me is email.
       </p>
       <ul className="mt-8 space-y-3">
         {links.map(({ icon: Icon, label, href, external }) => (
