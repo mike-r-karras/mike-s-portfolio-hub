@@ -124,14 +124,6 @@ export function Footer({
           }}
         />
 
-        {/* Black wet veil — heavier than before, this is asphalt */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.85) 70%, #000 100%)",
-          }}
-        />
         {/* Specular streak shimmer */}
         <div
           className="absolute inset-0 opacity-20 mix-blend-screen"
