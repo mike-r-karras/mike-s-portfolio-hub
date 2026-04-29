@@ -24,7 +24,6 @@ export function Footer({
   useEffect(() => {
     const mirror = mirrorRef.current;
     const source = sourceRef.current;
-    console.log("[Footer] mirror effect", { mirror: !!mirror, source: !!source });
     if (!mirror || !source) return;
 
     let rafId = 0;
