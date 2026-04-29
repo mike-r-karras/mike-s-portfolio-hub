@@ -1,11 +1,13 @@
 import microservicesBg from "@/assets/microservices-bg.png";
 import branchAwareBg from "@/assets/branch-aware-bg.png";
+import secureDocBg from "@/assets/secure-doc-bg.png";
 
 type Project = {
   title: string;
   description: string;
   stack: string[];
   backgroundImage?: string;
+  imageFit?: "top-half" | "contain-white";
 };
 
 const projects: Project[] = [
@@ -15,12 +17,15 @@ const projects: Project[] = [
       "Migrated a legacy monolith to scalable microservices using Node.js and AWS Lambda. Improved deployment speed and system scalability.",
     stack: ["Node.js", "AWS Lambda", "API Gateway"],
     backgroundImage: microservicesBg,
+    imageFit: "top-half",
   },
   {
     title: "Secure Document Collaboration System",
     description:
       "Built a secure document exchange platform with malware scanning using AWS Lambda.",
     stack: ["AWS Lambda", "S3", "Node.js"],
+    backgroundImage: secureDocBg,
+    imageFit: "contain-white",
   },
   {
     title: "Branch-Aware Docker Environment",
@@ -28,6 +33,7 @@ const projects: Project[] = [
       "Created a system to spin up multi-service environments with correct branch alignment for QA testing.",
     stack: ["Docker", "CI/CD", "Bash"],
     backgroundImage: branchAwareBg,
+    imageFit: "top-half",
   },
   {
     title: "Healthcare SSO Integration",
