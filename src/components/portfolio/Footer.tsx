@@ -94,24 +94,35 @@ export function Footer({
         </defs>
       </svg>
 
-      {/* Reflection: live mirror of the stage, flipped + rippled + faded */}
+      {/* Reflection: live mirror of the stage, flipped + rippled + faded.
+          Anchored at the TOP of the footer so the puddle reflects the
+          content sitting just above the seam. */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
         <div
-          className="absolute left-0 right-0 bottom-0"
+          className="absolute left-0 right-0 top-0"
           style={{
             transform: "scaleY(-1)",
-            transformOrigin: "bottom center",
-            height: "100vh",
-            opacity: 0.7,
-            filter: "url(#wet-ripple) saturate(0.85) brightness(0.55) contrast(1.1)",
+            transformOrigin: "top center",
+            height: "80vh",
+            opacity: 0.85,
+            filter: "url(#wet-ripple) saturate(0.85) brightness(0.6) contrast(1.05)",
             maskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
           }}
         >
           <div ref={mirrorRef} className="h-full w-full" />
         </div>
+
+        {/* Light asphalt veil - wet, but you can still see through */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 80%, rgba(0,0,0,0.85) 100%)",
+          }}
+        />
 
         {/* Black wet veil — heavier than before, this is asphalt */}
         <div
