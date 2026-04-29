@@ -7,8 +7,8 @@ export function About() {
       <div className="mt-6 space-y-4 text-base leading-relaxed text-foreground/90">
         <p>
           Senior Software Engineer with 15+ years of experience building
-          scalable, cloud-based applications. Specializes in Node.js, React, and
-          AWS serverless architecture.
+          scalable, cloud-based applications. Specializes in Node.js, React,
+          Python, and AWS serverless architecture.
         </p>
         <p>Strong background in:</p>
         <ul className="list-disc space-y-1 pl-6 text-muted-foreground">
