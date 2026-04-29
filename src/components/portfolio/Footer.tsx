@@ -43,10 +43,29 @@ export function Footer({
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
+      // The stage uses CSS 3D (perspective + rotateY) which, when cloned and
+      // flipped, projects content outside the footer's clip region. Remove
+      // only the 3D bits; keep the 2D translateX that drives the carousel.
+      clone.style.perspective = "none";
+      clone.querySelectorAll<HTMLElement>("*").forEach((el) => {
+        const t = el.style.transform;
+        if (t && /rotate[XY]|translateZ|perspective/.test(t)) {
+          el.style.transform = "none";
+        }
+        el.style.perspective = "none";
+        el.style.transformStyle = "flat";
+      });
+
       const rect = source.getBoundingClientRect();
+      // Size the mirror itself to the full source so the cloned content
+      // sits naturally; clipping happens at the outer footer.
+      mirror.style.width = `${rect.width}px`;
+      mirror.style.height = `${rect.height}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
+      clone.style.overflow = "hidden";
+      clone.style.margin = "0";
 
       mirror.replaceChildren(clone);
 
@@ -94,33 +113,38 @@ export function Footer({
         </defs>
       </svg>
 
-      {/* Reflection: live mirror of the stage, flipped + rippled + faded */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+      {/* Reflection: a window onto the bottom slice of the stage, flipped
+          vertically so the seam between footer and stage acts as the
+          waterline of a puddle. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden"
+        style={{ height: "100%" }}
+        aria-hidden
+      >
         <div
-          className="absolute left-0 right-0 bottom-0"
+          ref={mirrorRef}
+          className="absolute inset-x-0 bottom-0"
           style={{
             transform: "scaleY(-1)",
-            transformOrigin: "bottom center",
-            height: "100vh",
-            opacity: 0.7,
-            filter: "url(#wet-ripple) saturate(0.85) brightness(0.55) contrast(1.1)",
+            transformOrigin: "center",
+            opacity: 0.9,
+            filter: "url(#wet-ripple) saturate(0.85) brightness(0.65) contrast(1.05)",
             maskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
           }}
-        >
-          <div ref={mirrorRef} className="h-full w-full" />
-        </div>
+        />
 
-        {/* Black wet veil — heavier than before, this is asphalt */}
+        {/* Light asphalt veil - wet, but you can still see through */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.85) 70%, #000 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.55) 80%, rgba(0,0,0,0.85) 100%)",
           }}
         />
+
         {/* Specular streak shimmer */}
         <div
           className="absolute inset-0 opacity-20 mix-blend-screen"
