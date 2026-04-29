@@ -75,6 +75,7 @@ export function Projects() {
                 </span>
               ))}
             </div>
+            </div>
           </article>
         ))}
       </div>
