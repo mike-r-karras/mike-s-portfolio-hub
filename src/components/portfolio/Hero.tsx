@@ -9,7 +9,7 @@ export function Hero() {
         <img
           src={portrait}
           alt="Mike Karras portrait"
-          className="h-24 w-24 rounded-full border border-white/80 object-cover sm:h-32 sm:w-32"
+          className="h-24 w-24 rounded-md border border-white/80 object-cover sm:h-32 sm:w-32"
         />
         <div className="flex-1">
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
