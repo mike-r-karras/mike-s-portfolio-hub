@@ -13,7 +13,7 @@ const links = [
 
 export function Contact() {
   return (
-    <section id="contact" className="mx-auto max-w-3xl px-6 py-20">
+    <section id="contact" className="mx-auto max-w-3xl px-6 py-10">
       <h2 className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
         Contact
       </h2>
