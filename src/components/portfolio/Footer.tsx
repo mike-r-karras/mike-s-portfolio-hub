@@ -43,16 +43,18 @@ export function Footer({
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
-      // Strip 3D transforms / perspective from the clone so the reflection
-      // is a flat 2D projection of the visible content, not a tilted plane
-      // that gets clipped out of the footer.
-      const stripTransform = (el: HTMLElement) => {
-        el.style.transform = "none";
+      // The stage uses CSS 3D (perspective + rotateY) which, when cloned and
+      // flipped, projects content outside the footer's clip region. Remove
+      // only the 3D bits; keep the 2D translateX that drives the carousel.
+      clone.style.perspective = "none";
+      clone.querySelectorAll<HTMLElement>("*").forEach((el) => {
+        const t = el.style.transform;
+        if (t && /rotate[XY]|translateZ|perspective/.test(t)) {
+          el.style.transform = "none";
+        }
         el.style.perspective = "none";
         el.style.transformStyle = "flat";
-      };
-      stripTransform(clone);
-      clone.querySelectorAll<HTMLElement>("*").forEach(stripTransform);
+      });
 
       const rect = source.getBoundingClientRect();
       clone.style.width = `${rect.width}px`;
