@@ -1,6 +1,7 @@
 import microservicesBg from "@/assets/microservices-bg.png";
 import branchAwareBg from "@/assets/branch-aware-bg.png";
 import secureDocBg from "@/assets/secure-doc-bg.png";
+import healthcareSsoBg from "@/assets/healthcare-sso-bg.png";
 
 type Project = {
   title: string;
@@ -40,6 +41,8 @@ const projects: Project[] = [
     description:
       "Implemented OAuth/Okta-based authentication and third-party integrations for healthcare systems.",
     stack: ["OAuth", "Okta", "Node.js"],
+    backgroundImage: healthcareSsoBg,
+    imageFit: "contain-white",
   },
 ];
 
@@ -53,7 +56,7 @@ export function Projects() {
         {projects.map((p) => (
           <article
             key={p.title}
-            className="group flex flex-col overflow-hidden rounded-lg border border-border/60 bg-card/30 transition-colors hover:border-foreground/30"
+            className="group flex flex-col overflow-hidden rounded-lg border border-white/80 bg-card/30 transition-colors hover:border-white"
           >
             {p.backgroundImage && p.imageFit === "contain-white" && (
               <div
