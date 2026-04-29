@@ -43,12 +43,25 @@ export function Footer({
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
+      // Strip 3D transforms / perspective from the clone so the reflection
+      // is a flat 2D projection of the visible content, not a tilted plane
+      // that gets clipped out of the footer.
+      const stripTransform = (el: HTMLElement) => {
+        el.style.transform = "none";
+        el.style.perspective = "none";
+        el.style.transformStyle = "flat";
+      };
+      stripTransform(clone);
+      clone.querySelectorAll<HTMLElement>("*").forEach(stripTransform);
+
       const rect = source.getBoundingClientRect();
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
+      clone.style.overflow = "hidden";
 
       mirror.replaceChildren(clone);
+
 
       if (!cancelled) rafId = requestAnimationFrame(sync);
     };
