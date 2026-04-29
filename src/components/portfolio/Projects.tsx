@@ -16,7 +16,7 @@ const projects: Project[] = [
     title: "Microservices Migration Platform",
     description:
       "Migrated a legacy monolith to scalable microservices using Node.js and AWS Lambda. Improved deployment speed and system scalability.",
-    stack: ["Node.js", "AWS Lambda", "API Gateway"],
+    stack: ["Node.js", "Python", "AWS Lambda", "API Gateway"],
     backgroundImage: microservicesBg,
     imageFit: "top-half",
   },
@@ -32,7 +32,7 @@ const projects: Project[] = [
     title: "Branch-Aware Docker Environment",
     description:
       "Created a system to spin up multi-service environments with correct branch alignment for QA testing.",
-    stack: ["Docker", "CI/CD", "Bash"],
+    stack: ["Docker", "GitHub CLI", "CI/CD", "Bash"],
     backgroundImage: branchAwareBg,
     imageFit: "top-half",
   },
@@ -40,7 +40,7 @@ const projects: Project[] = [
     title: "Healthcare SSO Integration",
     description:
       "Implemented OAuth/Okta-based authentication and third-party integrations for healthcare systems.",
-    stack: ["OAuth", "Okta", "Node.js"],
+    stack: ["OAuth", "Okta", "Java", "Node.js"],
     backgroundImage: healthcareSsoBg,
     imageFit: "contain-white",
   },
