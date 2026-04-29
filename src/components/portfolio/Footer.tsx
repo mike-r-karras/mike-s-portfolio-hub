@@ -58,10 +58,15 @@ export function Footer({
       });
 
       const rect = source.getBoundingClientRect();
+      // Size the mirror itself to the full source so the cloned content
+      // sits naturally; clipping happens at the outer footer.
+      mirror.style.width = `${rect.width}px`;
+      mirror.style.height = `${rect.height}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
       clone.style.overflow = "hidden";
+      clone.style.margin = "0";
 
       mirror.replaceChildren(clone);
 
