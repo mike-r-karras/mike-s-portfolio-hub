@@ -65,6 +65,23 @@ export function Footer({
 
       mirror.replaceChildren(clone);
 
+      if (!(window as Window & { __mirrorLogged?: boolean }).__mirrorLogged) {
+        (window as Window & { __mirrorLogged?: boolean }).__mirrorLogged = true;
+        const cr = clone.getBoundingClientRect();
+        const mr = mirror.getBoundingClientRect();
+        const wrapper = mirror.parentElement;
+        const wr = wrapper?.getBoundingClientRect();
+        console.log("[Footer] clone inserted", {
+          sourceRect: { w: rect.width, h: rect.height },
+          wrapperRect: wr && { x: wr.x, y: wr.y, w: wr.width, h: wr.height },
+          mirrorRect: { x: mr.x, y: mr.y, w: mr.width, h: mr.height },
+          cloneRect: { x: cr.x, y: cr.y, w: cr.width, h: cr.height },
+          mirrorChildren: mirror.children.length,
+          cloneOuterHTMLLen: clone.outerHTML.length,
+          wrapperTransform: wrapper ? getComputedStyle(wrapper).transform : null,
+        });
+      }
+
 
       if (!cancelled) rafId = requestAnimationFrame(sync);
     };
