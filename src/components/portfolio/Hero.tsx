@@ -4,7 +4,7 @@ import portrait from "@/assets/mike-portrait.jpg";
 
 export function Hero() {
   return (
-    <section id="top" className="mx-auto max-w-3xl px-6 pt-24 pb-20 sm:pt-32">
+    <section id="top" className="mx-auto max-w-3xl px-6 pt-12 pb-10 sm:pt-16">
       <div className="flex items-start gap-6">
         <img
           src={portrait}
