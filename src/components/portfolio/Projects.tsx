@@ -47,18 +47,20 @@ export function Projects() {
         {projects.map((p) => (
           <article
             key={p.title}
-            className="group flex flex-col rounded-lg border border-border/60 bg-card/30 p-6 transition-colors hover:border-foreground/30"
-            style={
-              p.backgroundImage
-                ? {
-                    backgroundImage: `url(${p.backgroundImage})`,
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                  }
-                : undefined
-            }
+            className="group flex flex-col overflow-hidden rounded-lg border border-border/60 bg-card/30 transition-colors hover:border-foreground/30"
           >
+            {p.backgroundImage && (
+              <div className="w-full overflow-hidden">
+                <img
+                  src={p.backgroundImage}
+                  alt=""
+                  aria-hidden="true"
+                  className="block w-full h-auto"
+                  style={{ clipPath: "inset(0 0 50% 0)", marginBottom: "-50%" }}
+                />
+              </div>
+            )}
+            <div className="flex flex-1 flex-col p-6">
             <h3 className="text-lg font-semibold text-foreground">{p.title}</h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
               {p.description}
