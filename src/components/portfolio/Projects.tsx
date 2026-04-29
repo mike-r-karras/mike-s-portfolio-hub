@@ -50,13 +50,12 @@ export function Projects() {
             className="group flex flex-col overflow-hidden rounded-lg border border-border/60 bg-card/30 transition-colors hover:border-foreground/30"
           >
             {p.backgroundImage && (
-              <div className="w-full overflow-hidden">
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "2 / 1" }}>
                 <img
                   src={p.backgroundImage}
                   alt=""
                   aria-hidden="true"
-                  className="block w-full h-auto"
-                  style={{ clipPath: "inset(0 0 50% 0)", marginBottom: "-50%" }}
+                  className="absolute inset-x-0 top-0 block w-full h-auto"
                 />
               </div>
             )}
