@@ -120,8 +120,8 @@ export function WetReflectionGL({
         material.uniforms.uTexture.value = next;
         texture.dispose();
         texture = next;
-      } catch {
-        /* ignore capture failures */
+      } catch (err) {
+        console.warn("[WetReflectionGL] html2canvas failed:", err);
       } finally {
         capturing = false;
       }
