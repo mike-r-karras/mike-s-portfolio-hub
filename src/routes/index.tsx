@@ -82,8 +82,8 @@ function Index() {
       style={{ width: `${100 / sections.length}%`, padding: "25px" }}
       aria-hidden={s.id !== active}
     >
-      <div
-        className="min-h-full flex items-center"
+        <div
+          className="min-h-full flex items-end"
         style={{
           borderRadius: "20px",
           border: "1.5px solid oklch(0.85 0.12 230)",
