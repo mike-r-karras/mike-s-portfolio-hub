@@ -31,6 +31,7 @@ export function Footer({
 
     const sync = () => {
       const now = performance.now();
+      // Resample ~30fps to capture scroll + section transitions.
       if (now - lastCloneAt.current < 33) {
         rafId = requestAnimationFrame(sync);
         return;
@@ -43,24 +44,14 @@ export function Footer({
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
-      // The stage uses CSS 3D (perspective + rotateY) which, when cloned and
-      // flipped, projects content outside the footer's clip region. Remove
-      // only the 3D bits; keep the 2D translateX that drives the carousel.
-      clone.style.perspective = "none";
-      clone.querySelectorAll<HTMLElement>("*").forEach((el) => {
-        const t = el.style.transform;
-        if (t && /rotate[XY]|translateZ|perspective/.test(t)) {
-          el.style.transform = "none";
-        }
-        el.style.perspective = "none";
-        el.style.transformStyle = "flat";
-      });
 
       const rect = source.getBoundingClientRect();
-      // Size the mirror itself to the full source so the cloned content
-      // sits naturally; clipping happens at the outer footer.
+      // Match the reflected section's exact width and position; preserve the
+      // source's 3D transforms (perspective + rotateY) so the tilt carries
+      // into the puddle correctly.
       mirror.style.width = `${rect.width}px`;
       mirror.style.height = `${rect.height}px`;
+      mirror.style.left = `${rect.left}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
@@ -84,35 +75,6 @@ export function Footer({
       className="relative shrink-0 overflow-hidden border-t border-border/40"
       style={{ height: "20vh", background: "#000" }}
     >
-      {/* SVG wet-ripple displacement filter */}
-      <svg className="absolute h-0 w-0" aria-hidden>
-        <defs>
-          <filter id="wet-ripple" x="0" y="0" width="100%" height="100%">
-            <feTurbulence
-              type="fractalNoise"
-              baseFrequency="0.012 0.06"
-              numOctaves="2"
-              seed="3"
-              result="noise"
-            >
-              <animate
-                attributeName="baseFrequency"
-                dur="14s"
-                values="0.012 0.06; 0.018 0.07; 0.012 0.06"
-                repeatCount="indefinite"
-              />
-            </feTurbulence>
-            <feDisplacementMap
-              in="SourceGraphic"
-              in2="noise"
-              scale="10"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
-        </defs>
-      </svg>
-
       {/* Reflection: a window onto the bottom slice of the stage, flipped
           vertically so the seam between footer and stage acts as the
           waterline of a puddle.  */}
@@ -123,12 +85,12 @@ export function Footer({
       >
         <div
           ref={mirrorRef}
-          className="absolute inset-x-0 top-0"
+          className="absolute top-0"
           style={{
             transform: "scaleY(-1)",
-            transformOrigin: "center",
+            transformOrigin: "center top",
             opacity: 0.9,
-            filter: "url(#wet-ripple) saturate(0.85) brightness(0.65) contrast(1.05)",
+            filter: "saturate(0.85) brightness(0.65) contrast(1.05)",
             maskImage:
               "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
