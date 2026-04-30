@@ -106,6 +106,7 @@ function Index() {
       <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }} ref={stageRef}>
         {/* Tilted stage — angles away from viewer L→R */}
         <div
+          data-reflection-source
           className="h-full w-full"
           style={{
             transform: "translateZ(-180px) rotateY(10deg)",
