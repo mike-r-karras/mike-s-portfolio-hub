@@ -103,9 +103,10 @@ function Index() {
     <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
       <Nav active={active} onNavigate={goTo} />
 
-      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }} ref={stageRef}>
+      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }}>
         {/* Tilted stage — angles away from viewer L→R */}
         <div
+          ref={stageRef}
           data-reflection-source
           className="h-full w-full"
           style={{
