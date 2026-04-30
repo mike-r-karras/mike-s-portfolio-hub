@@ -115,7 +115,7 @@ export function Footer({
 
       {/* Reflection: a window onto the bottom slice of the stage, flipped
           vertically so the seam between footer and stage acts as the
-          waterline of a puddle. */}
+          waterline of a puddle.  */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden"
         style={{ height: "100%" }}
