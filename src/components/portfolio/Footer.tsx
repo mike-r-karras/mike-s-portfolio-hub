@@ -38,15 +38,14 @@ export function Footer({
       }
       lastCloneAt.current = now;
 
-      const reflected = source.querySelector<HTMLElement>("[data-reflection-source]") ?? source;
-      const clone = reflected.cloneNode(true) as HTMLElement;
+      const clone = source.cloneNode(true) as HTMLElement;
       clone.querySelectorAll("button, a, input, [tabindex]").forEach((el) => {
         (el as HTMLElement).removeAttribute("tabindex");
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
 
-      const rect = reflected.getBoundingClientRect();
+      const rect = source.getBoundingClientRect();
       // Match the reflected section's exact width and position; preserve the
       // source's 3D transforms (perspective + rotateY) so the tilt carries
       // into the puddle correctly.
@@ -83,7 +82,7 @@ export function Footer({
           waterline of a puddle.  */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden"
-        style={{ height: "100%" }}
+        style={{ height: "100%", perspective: "1400px" }}
         aria-hidden
       >
         <div
