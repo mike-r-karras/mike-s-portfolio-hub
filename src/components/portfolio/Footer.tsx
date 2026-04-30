@@ -52,19 +52,57 @@ export function Footer({
         aria-hidden
       >
         <div
-          ref={mirrorRef}
-          className="absolute"
+          className="absolute inset-x-0 pointer-events-none"
           style={{
+            top: stageHeight,
+            height: stageHeight,
             transform: "scaleY(-1)",
             transformOrigin: "center top",
-            opacity: 0.9,
-            filter: "saturate(0.85) brightness(0.65) contrast(1.05)",
+            opacity: 0.75,
+            filter: "saturate(0.85) brightness(0.7) contrast(1.05)",
             maskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
           }}
-        />
+        >
+          <div
+            className="h-full w-full"
+            style={{
+              transform: "translateZ(-180px) rotateY(10deg)",
+              transformOrigin: "right center",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            <div
+              className="flex h-full transition-transform duration-500 ease-in-out"
+              style={{
+                width: `${sections.length * 100}%`,
+                transform: `translateX(-${activeIndex * (100 / sections.length)}%)`,
+              }}
+            >
+              {sections.map((s) => (
+                <div
+                  key={s.id}
+                  className="h-full overflow-hidden"
+                  style={{ width: `${100 / sections.length}%`, padding: "25px" }}
+                >
+                  <div
+                    className="min-h-full flex items-end"
+                    style={{
+                      borderRadius: "20px",
+                      border: "1.5px solid oklch(0.85 0.12 230)",
+                      boxShadow:
+                        "0 0 6px oklch(0.85 0.12 230 / 0.9), 0 0 18px oklch(0.78 0.18 230 / 0.7), 0 0 36px oklch(0.7 0.2 230 / 0.45), inset 0 0 12px oklch(0.85 0.15 230 / 0.25)",
+                    }}
+                  >
+                    <div className="w-full">{s.node}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Light asphalt veil - wet, but you can still see through */}
         <div
