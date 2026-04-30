@@ -38,14 +38,15 @@ export function Footer({
       }
       lastCloneAt.current = now;
 
-      const clone = source.cloneNode(true) as HTMLElement;
+      const reflected = source.querySelector<HTMLElement>("[data-reflection-source]") ?? source;
+      const clone = reflected.cloneNode(true) as HTMLElement;
       clone.querySelectorAll("button, a, input, [tabindex]").forEach((el) => {
         (el as HTMLElement).removeAttribute("tabindex");
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
 
-      const rect = source.getBoundingClientRect();
+      const rect = reflected.getBoundingClientRect();
       // Match the reflected section's exact width and position; preserve the
       // source's 3D transforms (perspective + rotateY) so the tilt carries
       // into the puddle correctly.
@@ -58,6 +59,7 @@ export function Footer({
       clone.style.position = "relative";
       clone.style.overflow = "hidden";
       clone.style.margin = "0";
+      clone.style.transformOrigin = "inherit";
 
       mirror.replaceChildren(clone);
 
