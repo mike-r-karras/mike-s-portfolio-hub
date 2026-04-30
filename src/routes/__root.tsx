@@ -45,6 +45,12 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Mike Karras — Senior Software Engineer" },
+      { name: "description", content: "Portfolio for Mike Karras, Senior Software Engineer" },
+      { property: "og:description", content: "Portfolio for Mike Karras, Senior Software Engineer" },
+      { name: "twitter:description", content: "Portfolio for Mike Karras, Senior Software Engineer" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86842c4e-7705-4f08-a119-0837430b6a72/id-preview-81886043--a083b030-ccfc-49e6-9c4f-d107c3fa5322.lovable.app-1777564819358.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/86842c4e-7705-4f08-a119-0837430b6a72/id-preview-81886043--a083b030-ccfc-49e6-9c4f-d107c3fa5322.lovable.app-1777564819358.png" },
     ],
     links: [
       {
