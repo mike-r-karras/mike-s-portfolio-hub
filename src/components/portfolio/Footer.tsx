@@ -123,7 +123,7 @@ export function Footer({
       >
         <div
           ref={mirrorRef}
-          className="absolute inset-x-0 bottom-0"
+          className="absolute inset-x-0 top-0"
           style={{
             transform: "scaleY(-1)",
             transformOrigin: "center",
