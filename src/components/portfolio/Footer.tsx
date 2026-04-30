@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { sectionOrder, type SectionId } from "@/components/portfolio/Nav";
 
 type Section = { id: SectionId; node: React.ReactNode };
@@ -16,51 +16,17 @@ export function Footer({
   onNavigate: (id: SectionId) => void;
   sourceRef: RefObject<HTMLElement | null>;
 }) {
-  const mirrorRef = useRef<HTMLDivElement | null>(null);
-  const lastCloneAt = useRef(0);
+  const [stageHeight, setStageHeight] = useState(0);
 
-  // Live-mirror the stage DOM into the footer. Browser renders the clone
-  // with real CSS (oklch, gradients, etc.), so colors stay accurate.
+  // Keep the reflected strip anchored to the real stage height so the
+  // bottom edge of the section starts at the top of the reflection.
   useEffect(() => {
-    const mirror = mirrorRef.current;
-    const source = sourceRef.current;
-    if (!mirror || !source) return;
-
     let rafId = 0;
     let cancelled = false;
 
     const sync = () => {
-      const now = performance.now();
-      // Resample ~30fps to capture scroll + section transitions.
-      if (now - lastCloneAt.current < 33) {
-        rafId = requestAnimationFrame(sync);
-        return;
-      }
-      lastCloneAt.current = now;
-
-      const clone = source.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll("button, a, input, [tabindex]").forEach((el) => {
-        (el as HTMLElement).removeAttribute("tabindex");
-        (el as HTMLElement).setAttribute("aria-hidden", "true");
-        (el as HTMLElement).style.pointerEvents = "none";
-      });
-
-      const rect = source.getBoundingClientRect();
-      // Match the reflected section's exact width and position; preserve the
-      // source's 3D transforms (perspective + rotateY) so the tilt carries
-      // into the puddle correctly.
-      mirror.style.width = `${rect.width}px`;
-      mirror.style.height = `${rect.height}px`;
-      mirror.style.left = `${rect.left}px`;
-      mirror.style.top = `${rect.height}px`;
-      clone.style.width = `${rect.width}px`;
-      clone.style.height = `${rect.height}px`;
-      clone.style.position = "relative";
-      clone.style.overflow = "hidden";
-      clone.style.margin = "0";
-      clone.style.transformOrigin = "inherit";
-
-      mirror.replaceChildren(clone);
+      const nextHeight = sourceRef.current?.offsetHeight ?? 0;
+      setStageHeight((current) => (Math.abs(current - nextHeight) > 1 ? nextHeight : current));
 
       if (!cancelled) rafId = requestAnimationFrame(sync);
     };
