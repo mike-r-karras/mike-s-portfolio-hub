@@ -48,7 +48,7 @@ export function Footer({
           waterline of a puddle.  */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden"
-        style={{ height: "100%", perspective: "1400px" }}
+        style={{ height: "100%" }}
         aria-hidden
       >
         <div
@@ -64,6 +64,8 @@ export function Footer({
               "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
               "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0) 100%)",
+            perspective: "1400px",
+            perspectiveOrigin: "center center",
           }}
         >
           <div
