@@ -31,6 +31,7 @@ export function Footer({
 
     const sync = () => {
       const now = performance.now();
+      // Resample ~30fps to capture scroll + section transitions.
       if (now - lastCloneAt.current < 33) {
         rafId = requestAnimationFrame(sync);
         return;
@@ -43,24 +44,14 @@ export function Footer({
         (el as HTMLElement).setAttribute("aria-hidden", "true");
         (el as HTMLElement).style.pointerEvents = "none";
       });
-      // The stage uses CSS 3D (perspective + rotateY) which, when cloned and
-      // flipped, projects content outside the footer's clip region. Remove
-      // only the 3D bits; keep the 2D translateX that drives the carousel.
-      clone.style.perspective = "none";
-      clone.querySelectorAll<HTMLElement>("*").forEach((el) => {
-        const t = el.style.transform;
-        if (t && /rotate[XY]|translateZ|perspective/.test(t)) {
-          el.style.transform = "none";
-        }
-        el.style.perspective = "none";
-        el.style.transformStyle = "flat";
-      });
 
       const rect = source.getBoundingClientRect();
-      // Size the mirror itself to the full source so the cloned content
-      // sits naturally; clipping happens at the outer footer.
+      // Match the reflected section's exact width and position; preserve the
+      // source's 3D transforms (perspective + rotateY) so the tilt carries
+      // into the puddle correctly.
       mirror.style.width = `${rect.width}px`;
       mirror.style.height = `${rect.height}px`;
+      mirror.style.left = `${rect.left}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
