@@ -1,4 +1,4 @@
-import { useEffect, useRef, type RefObject } from "react";
+import { useEffect, useState, type RefObject } from "react";
 import { sectionOrder, type SectionId } from "@/components/portfolio/Nav";
 
 type Section = { id: SectionId; node: React.ReactNode };
@@ -16,49 +16,17 @@ export function Footer({
   onNavigate: (id: SectionId) => void;
   sourceRef: RefObject<HTMLElement | null>;
 }) {
-  const mirrorRef = useRef<HTMLDivElement | null>(null);
-  const lastCloneAt = useRef(0);
+  const [stageHeight, setStageHeight] = useState(0);
 
-  // Live-mirror the stage DOM into the footer. Browser renders the clone
-  // with real CSS (oklch, gradients, etc.), so colors stay accurate.
+  // Keep the reflected strip anchored to the real stage height so the
+  // bottom edge of the section starts at the top of the reflection.
   useEffect(() => {
-    const mirror = mirrorRef.current;
-    const source = sourceRef.current;
-    if (!mirror || !source) return;
-
     let rafId = 0;
     let cancelled = false;
 
     const sync = () => {
-      const now = performance.now();
-      // Resample ~30fps to capture scroll + section transitions.
-      if (now - lastCloneAt.current < 33) {
-        rafId = requestAnimationFrame(sync);
-        return;
-      }
-      lastCloneAt.current = now;
-
-      const clone = source.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll("button, a, input, [tabindex]").forEach((el) => {
-        (el as HTMLElement).removeAttribute("tabindex");
-        (el as HTMLElement).setAttribute("aria-hidden", "true");
-        (el as HTMLElement).style.pointerEvents = "none";
-      });
-
-      const rect = source.getBoundingClientRect();
-      // Match the reflected section's exact width and position; preserve the
-      // source's 3D transforms (perspective + rotateY) so the tilt carries
-      // into the puddle correctly.
-      mirror.style.width = `${rect.width}px`;
-      mirror.style.height = `${rect.height}px`;
-      mirror.style.left = `${rect.left}px`;
-      clone.style.width = `${rect.width}px`;
-      clone.style.height = `${rect.height}px`;
-      clone.style.position = "relative";
-      clone.style.overflow = "hidden";
-      clone.style.margin = "0";
-
-      mirror.replaceChildren(clone);
+      const nextHeight = sourceRef.current?.offsetHeight ?? 0;
+      setStageHeight((current) => (Math.abs(current - nextHeight) > 1 ? nextHeight : current));
 
       if (!cancelled) rafId = requestAnimationFrame(sync);
     };
@@ -80,23 +48,61 @@ export function Footer({
           waterline of a puddle.  */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 overflow-hidden"
-        style={{ height: "100%" }}
+        style={{ height: "100%", perspective: "1400px" }}
         aria-hidden
       >
         <div
-          ref={mirrorRef}
-          className="absolute top-0"
+          className="absolute inset-x-0 pointer-events-none"
           style={{
+            top: stageHeight,
+            height: stageHeight,
             transform: "scaleY(-1)",
             transformOrigin: "center top",
-            opacity: 0.9,
-            filter: "saturate(0.85) brightness(0.65) contrast(1.05)",
+            opacity: 0.75,
+            filter: "saturate(0.85) brightness(0.7) contrast(1.05)",
             maskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
           }}
-        />
+        >
+          <div
+            className="h-full w-full"
+            style={{
+              transform: "translateZ(-180px) rotateY(10deg)",
+              transformOrigin: "right center",
+              transformStyle: "preserve-3d",
+            }}
+          >
+            <div
+              className="flex h-full transition-transform duration-500 ease-in-out"
+              style={{
+                width: `${sections.length * 100}%`,
+                transform: `translateX(-${activeIndex * (100 / sections.length)}%)`,
+              }}
+            >
+              {sections.map((s) => (
+                <div
+                  key={s.id}
+                  className="h-full overflow-hidden"
+                  style={{ width: `${100 / sections.length}%`, padding: "25px" }}
+                >
+                  <div
+                    className="min-h-full flex items-end"
+                    style={{
+                      borderRadius: "20px",
+                      border: "1.5px solid oklch(0.85 0.12 230)",
+                      boxShadow:
+                        "0 0 6px oklch(0.85 0.12 230 / 0.9), 0 0 18px oklch(0.78 0.18 230 / 0.7), 0 0 36px oklch(0.7 0.2 230 / 0.45), inset 0 0 12px oklch(0.85 0.15 230 / 0.25)",
+                    }}
+                  >
+                    <div className="w-full">{s.node}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Light asphalt veil - wet, but you can still see through */}
         <div

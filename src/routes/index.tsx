@@ -82,8 +82,8 @@ function Index() {
       style={{ width: `${100 / sections.length}%`, padding: "25px" }}
       aria-hidden={s.id !== active}
     >
-      <div
-        className="min-h-full flex items-center"
+        <div
+          className="min-h-full flex items-end"
         style={{
           borderRadius: "20px",
           border: "1.5px solid oklch(0.85 0.12 230)",
@@ -103,9 +103,11 @@ function Index() {
     <div className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
       <Nav active={active} onNavigate={goTo} />
 
-      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }} ref={stageRef}>
+      <main className="relative flex-1 overflow-hidden" style={{ perspective: "1400px" }}>
         {/* Tilted stage — angles away from viewer L→R */}
         <div
+          ref={stageRef}
+          data-reflection-source
           className="h-full w-full"
           style={{
             transform: "translateZ(-180px) rotateY(10deg)",
