@@ -52,6 +52,7 @@ export function Footer({
       mirror.style.width = `${rect.width}px`;
       mirror.style.height = `${rect.height}px`;
       mirror.style.left = `${rect.left}px`;
+      mirror.style.top = `${rect.height}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
       clone.style.position = "relative";
@@ -85,7 +86,7 @@ export function Footer({
       >
         <div
           ref={mirrorRef}
-          className="absolute top-0"
+          className="absolute"
           style={{
             transform: "scaleY(-1)",
             transformOrigin: "center top",
