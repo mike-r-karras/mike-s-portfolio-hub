@@ -78,6 +78,7 @@ function Index() {
   const renderPanel = (s: (typeof sections)[number]) => (
     <div
       key={s.id}
+      data-section-source={s.id}
       className="h-full overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       style={{ width: `${100 / sections.length}%`, padding: "25px" }}
       aria-hidden={s.id !== active}
