@@ -58,12 +58,12 @@ export function Footer({
             height: stageHeight,
             transform: "scaleY(-1)",
             transformOrigin: "center top",
-            opacity: 0.75,
-            filter: "saturate(0.85) brightness(0.7) contrast(1.05)",
+            opacity: 1,
+            filter: "saturate(1.1) brightness(2.1) contrast(1.05)",
             maskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0) 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.75) 70%, rgba(0,0,0,0) 100%)",
           }}
         >
           <div
