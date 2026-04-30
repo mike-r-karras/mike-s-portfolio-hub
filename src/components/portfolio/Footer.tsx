@@ -28,6 +28,20 @@ export function Footer({
       const nextHeight = sourceRef.current?.offsetHeight ?? 0;
       setStageHeight((current) => (Math.abs(current - nextHeight) > 1 ? nextHeight : current));
 
+      // Mirror per-panel scrollTop so vertical scrolling within a section
+      // is reflected in the puddle.
+      const sources = document.querySelectorAll<HTMLElement>("[data-section-source]");
+      sources.forEach((src) => {
+        const id = src.getAttribute("data-section-source");
+        if (!id) return;
+        const mirror = document.querySelector<HTMLElement>(
+          `[data-section-mirror="${id}"]`,
+        );
+        if (mirror && mirror.scrollTop !== src.scrollTop) {
+          mirror.scrollTop = src.scrollTop;
+        }
+      });
+
       if (!cancelled) rafId = requestAnimationFrame(sync);
     };
 
