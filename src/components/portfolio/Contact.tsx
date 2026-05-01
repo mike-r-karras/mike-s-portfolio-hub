@@ -30,13 +30,14 @@ export function Contact() {
         The fastest way to reach me is email.
       </p>
       <ul className="mt-8 space-y-3">
-        {links.map(({ icon: Icon, label, href, external }) => (
+        {links.map(({ icon: Icon, label, href, external, download }) => (
           <li key={label}>
             <a
               href={href}
               {...(external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
+              {...(download ? { download: "" } : {})}
               className="group inline-flex items-center gap-3 text-foreground/80 transition-colors hover:text-foreground"
             >
               <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
