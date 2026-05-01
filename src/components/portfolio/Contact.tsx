@@ -1,4 +1,4 @@
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, FileDown } from "lucide-react";
 
 const links = [
   {
@@ -9,6 +9,13 @@ const links = [
   },
   { icon: Github, label: "GitHub", href: "https://github.com/mike-r-karras", external: true },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/mike-karras-187b481b/", external: true },
+  {
+    icon: FileDown,
+    label: "Download résumé (PDF)",
+    href: "/MKarras-Software_Engineer.pdf",
+    external: false,
+    download: true,
+  },
 ];
 
 export function Contact() {
