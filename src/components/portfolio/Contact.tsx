@@ -1,4 +1,4 @@
-import { Mail, Github, Linkedin } from "lucide-react";
+import { Mail, Github, Linkedin, FileDown } from "lucide-react";
 
 const links = [
   {
@@ -9,6 +9,13 @@ const links = [
   },
   { icon: Github, label: "GitHub", href: "https://github.com/mike-r-karras", external: true },
   { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/in/mike-karras-187b481b/", external: true },
+  {
+    icon: FileDown,
+    label: "Download résumé (PDF)",
+    href: "/MKarras-Software_Engineer.pdf",
+    external: false,
+    download: true,
+  },
 ];
 
 export function Contact() {
@@ -23,13 +30,14 @@ export function Contact() {
         The fastest way to reach me is email.
       </p>
       <ul className="mt-8 space-y-3">
-        {links.map(({ icon: Icon, label, href, external }) => (
+        {links.map(({ icon: Icon, label, href, external, download }) => (
           <li key={label}>
             <a
               href={href}
               {...(external
                 ? { target: "_blank", rel: "noopener noreferrer" }
                 : {})}
+              {...(download ? { download: "" } : {})}
               className="group inline-flex items-center gap-3 text-foreground/80 transition-colors hover:text-foreground"
             >
               <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
